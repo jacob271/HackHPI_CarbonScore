@@ -1,0 +1,16 @@
+<tui-island class="tui-space_vertical-4">
+  <div>
+    <img [src]="searchResult.imageUrl" />
+
+    <div>
+      <div>
+        <p class="tui-island__category">{{ searchResult.name }}</p>
+        <h3 class="tui-island__title">{{ searchResult.category }}</h3>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <button tuiButton [routerLink]="['/', 'products', searchResult.id]">Details</button>
+  </div>
+</tui-island>

@@ -1,0 +1,12 @@
+:host {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  & > form {
+    height: 100%;
+    width: 60vw;
+
+    margin-top: 10%;
+  }
+}

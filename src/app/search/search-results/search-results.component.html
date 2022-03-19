@@ -1,0 +1,12 @@
+<ng-container *ngIf="{ query: query$ | async } as data">
+  <app-search-bar></app-search-bar>
+
+  <div>
+    <h5 class="tui-text_h5 tui-space_bottom-1">Search results for "{{ data.query }}"</h5>
+
+    <app-search-result-card
+      *ngFor="let searchResult of searchResults"
+      [searchResult]="searchResult"
+    ></app-search-result-card>
+  </div>
+</ng-container>

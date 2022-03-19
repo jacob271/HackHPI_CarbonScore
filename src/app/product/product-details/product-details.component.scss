@@ -1,0 +1,16 @@
+:host {
+  & > div {
+    display: flex;
+    justify-content: space-between;
+
+    & > div {
+      display: flex;
+      flex-direction: column;
+
+      & > div {
+        display: flex;
+        align-items: baseline;
+      }
+    }
+  }
+}
