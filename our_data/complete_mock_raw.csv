@@ -1,0 +1,27 @@
+company,productId,productName,month,type,plant,averageFootprintPerUnit,totalFootprint,quantity,aggregatesWithPercentages
+"Cookie Company A",BeeSug100,"Beet Sugar",12,raw,"MUC (Munich - Germany)",0.69600000000000,3132.00,4500.00,"BeeSug300:100"
+"Cookie Company A",Butter100,"Butter (Cow Milk)",12,raw,"MUC (Munich - Germany)",9.30000000000000,6975.00,750.00,"Butter300:100"
+"Cookie Company A",CocBea100,"Cocoa Beans",12,raw,"MUC (Munich - Germany)",12.20000000000000,9150.00,750.00,"CocBea400:100"
+"Cookie Company A",CocOil100,"Coconut Oil",12,raw,"MUC (Munich - Germany)",2.77500000000000,16650.00,6000.00,"CocOil300:100"
+"Cookie Company A",FloWhe100,"Wheat Grain Processing",12,raw,"MUC (Munich - Germany)",1.06800000000000,1602.00,1500.00,"FloWhe300:100"
+"Cookie Company A",PalOil100,"Palm Oil",12,raw,"MUC (Munich - Germany)",3.89000000000000,2917.50,750.00,"PalOil300:100"
+"Cookie Company A",Cookie100,"Chocolate Cookie",12,fin,"MUC (Munich - Germany)",4.50200000000000,6167.74,1370.00,"BeeSug100:20,Butter100:10,CocBea100:10,CocOil100:5,FloWhe100:50,PalOil100:5"
+"Cookie Company B",CaneSug200,"Cane Sugar",12,raw,"PHI (Philadelphia - Pennsylvania)",0.90000000000000,1350.00,1500.00,"CaneSug300:100"
+"Cookie Company B",Butter200,"Butter (Cow Milk)",12,raw,"PHI (Philadelphia - Pennsylvania)",18.60000000000000,6975.00,375.00,"Butter300:50,Butter400:50"
+"Cookie Company B",CocBea200,"Cocoa Beans",12,raw,"PHI (Philadelphia - Pennsylvania)",13.77433333000000,10330.75,750.00,"CocBea400:100"
+"Cookie Company B",CocOil200,"Coconut Oil",12,raw,"PHI (Philadelphia - Pennsylvania)",3.58714285700000,12555.00,3500.00,"CocOil300:40,CocOil400:60"
+"Cookie Company B",FloWhe200,"Wheat Grain Processing",12,raw,"PHI (Philadelphia - Pennsylvania)",0.93916666670000,1127.00,1200.00,"FloWhe400:100"
+"Cookie Company B",PalOil200,"Palm Oil",12,raw,"PHI (Philadelphia - Pennsylvania)",5.16516666700000,3099.10,600.00,"PalOil400:100"
+"Cookie Company B",Cookie200,"Chocolate Cookie",12,fin,"PHI (Philadelphia - Pennsylvania)",5.51542743500000,8322.78,1509.00,"CaneSug200:20,Butter200:10,CocBea200:10,CocOil200:5,FloWhe200:50,PalOil200:5"
+"Cookie Company C",BeeSug300,"Beet Sugar",12,fin,"BLR (Bangalore - India)",0.69600000000000,4698.00,6750.00,
+"Cookie Company C",CaneSug300,"Cane Sugar",12,fin,"BLR (Bangalore - India)",0.50000000000000,2375.00,4750.00,
+"Cookie Company C",Butter300,"Butter (Cow Milk)",12,fin,"BLR (Bangalore - India)",9.30000000000000,10462.50,1125.00,
+"Cookie Company C",CocOil300,"Coconut Oil",12,fin,"BLR (Bangalore - India)",2.77500000000000,24975.00,9000.00,
+"Cookie Company C",FloWhe300,"Wheat Grain Processing",12,fin,"BLR (Bangalore - India)",1.06800000000000,2403.00,2250.00,
+"Cookie Company C",PalOil300,"Palm Oil",12,fin,"BLR (Bangalore - India)",5.16516666700000,3099.10,600.00,
+"Cookie Company D",BeeSug400,"Beet Sugar",12,fin,"CHN (Shanghai - China)",0.68000000000000,3400.00,5000.00,
+"Cookie Company D",Butter400,"Butter (Cow Milk)",12,fin,"CHN (Shanghai - China)",8.00000000000000,10000.00,1250.00,
+"Cookie Company D",CocBea400,"Cocoa Beans",12,fin,"CHN (Shanghai - China)",12.20000000000000,15250.00,1250.00,
+"Cookie Company D",CocOil400,"Coconut Oil",12,fin,"CHN (Shanghai - China)",2.55000000000000,25500.00,10000.00,
+"Cookie Company D",FloWhe400,"Wheat Grain Processing",12,fin,"CHN (Shanghai - China)",1.06800000000000,2670.00,2500.00,
+"Cookie Company D",PalOil400,"Palm Oil",12,fin,"CHN (Shanghai - China)",4.20000000000000,6300.00,1500.00,

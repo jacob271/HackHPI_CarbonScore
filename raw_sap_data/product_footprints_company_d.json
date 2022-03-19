@@ -1,0 +1,72 @@
+{
+    "@context": "$metadata#ProductFootprints",
+    "@metadataEtag": "W/\"0b0d0957f498786b7a24926a2d7b65d06eac88567cba0dedd9066108ffb99add\"",
+    "value": [
+        {
+            "productId": "BeeSug400",
+            "plantId": "4910",
+            "periodFrom": "2021-12-01",
+            "periodTo": "2021-12-31",
+            "quantityUOM": "KG",
+            "footprintUOM": "KG",
+            "averageFootprintPerUnit": 0.68000000000000,
+            "totalFootprintInPeriod": 3400.00,
+            "quantityInPeriod": 5000.00
+        },
+        {
+            "productId": "Butter400",
+            "plantId": "4910",
+            "periodFrom": "2021-12-01",
+            "periodTo": "2021-12-31",
+            "quantityUOM": "KG",
+            "footprintUOM": "KG",
+            "averageFootprintPerUnit": 8.00000000000000,
+            "totalFootprintInPeriod": 10000.00,
+            "quantityInPeriod": 1250.00
+        },
+        {
+            "productId": "CocBea400",
+            "plantId": "4910",
+            "periodFrom": "2021-12-01",
+            "periodTo": "2021-12-31",
+            "quantityUOM": "KG",
+            "footprintUOM": "KG",
+            "averageFootprintPerUnit": 12.20000000000000,
+            "totalFootprintInPeriod": 15250.00,
+            "quantityInPeriod": 1250.00
+        },
+        {
+            "productId": "CocOil400",
+            "plantId": "4910",
+            "periodFrom": "2021-12-01",
+            "periodTo": "2021-12-31",
+            "quantityUOM": "KG",
+            "footprintUOM": "KG",
+            "averageFootprintPerUnit": 2.55000000000000,
+            "totalFootprintInPeriod": 25500.00,
+            "quantityInPeriod": 10000.00
+        },
+        {
+            "productId": "FloWhe400",
+            "plantId": "4910",
+            "periodFrom": "2021-12-01",
+            "periodTo": "2021-12-31",
+            "quantityUOM": "KG",
+            "footprintUOM": "KG",
+            "averageFootprintPerUnit": 1.06800000000000,
+            "totalFootprintInPeriod": 2670.00,
+            "quantityInPeriod": 2500.00
+        },
+        {
+            "productId": "PalOil400",
+            "plantId": "4910",
+            "periodFrom": "2021-12-01",
+            "periodTo": "2021-12-31",
+            "quantityUOM": "KG",
+            "footprintUOM": "KG",
+            "averageFootprintPerUnit": 4.20000000000000,
+            "totalFootprintInPeriod": 6300.00,
+            "quantityInPeriod": 1500.00
+        }
+    ]
+}
