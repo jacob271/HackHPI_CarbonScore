@@ -1,0 +1,8 @@
+productId,productName,month,type,plant,averageFootprintPerUnit,totalFootprint,quantity,aggregatesWithPercentages
+BeeSug100,"Beet Sugar",1,raw,"MUC (Munich - Germany)",0.69600000000000,3132.00,4500.00,
+Butter100,"Butter (Cow Milk)",1,raw,"MUC (Munich - Germany)",9.30000000000000,6975.00,750.00,
+CocBea100,"Cocoa Beans",1,raw,"MUC (Munich - Germany)",12.20000000000000,9150.00,750.00,
+CocOil100,"Coconut Oil",1,raw,"MUC (Munich - Germany)",2.77500000000000,16650.00,6000.00,
+FloWhe100,"Wheat Grain Processing",1,raw,"MUC (Munich - Germany)",1.06800000000000,1602.00,1500.00,
+PalOil100,"Palm Oil",1,raw,"MUC (Munich - Germany)",3.89000000000000,2917.50,750.00,
+Cookie100,"Chocolate Cookie",1,fin,"MUC (Munich - Germany)",4.50200000000000,6167.74,1370.00,"BeeSug100:20,Butter100:10,CocBea100:10,CocOil100:5,FloWhe100:50,PalOil100:5"
