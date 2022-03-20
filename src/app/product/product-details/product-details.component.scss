@@ -1,16 +1,26 @@
-:host {
+:host > div {
+  display: flex;
+
+  &:nth-of-type(1) {
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  & > img {
+    height: auto;
+    width: 700px;
+  }
+
   & > div {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
 
     & > div {
       display: flex;
       flex-direction: column;
-
-      & > div {
-        display: flex;
-        align-items: baseline;
-      }
+      justify-content: center;
     }
   }
 }
