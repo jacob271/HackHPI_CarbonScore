@@ -43,8 +43,8 @@ root,root,0,,
 root\\sugar,"Sugar",20,8,7
 root\\butter,"Butter (Cow Milk)",10,10,11
 root\\cocoabeans,"Cocoa Beans",13,11
-root\\cocoaoil,"Cocoa Oil",5,11,11
-root\\wheat,"Wheat",50,1,2
+root\\cocoaoil,"Cocoa Oil",10,11,11
+root\\wheat,"Wheat",30,1,2
 root\\palmoil,"Palm Oil",5,16,15
 `);
     var tree = stratify(data);
@@ -80,7 +80,7 @@ root\\palmoil,"Palm Oil",5,16,15
         .attr("height", function (d) {
             return d.y1 - d.y0;
         })
-        .attr("fill", function (d) { 
+        .attr("fill", function (d) {
             if (parseFloat(d.data.thisaverage) > parseFloat(d.data.average)) {
                 return "#d78e8c";
             } else if (parseFloat(d.data.thisaverage) < parseFloat(d.data.average)) {
@@ -89,12 +89,25 @@ root\\palmoil,"Palm Oil",5,16,15
                 return "#d3d78c";
             }
         });
+
+    // and to add the text labels
+    svg
+        .selectAll("text")
+        .data(tree.leaves())
+        .enter()
+        .append("text")
+        .attr("x", function (d) { return d.x0 + 10 })    // +10 to adjust position (more right)
+        .attr("y", function (d) { return d.y0 + 20 })    // +20 to adjust position (lower)
+        .text(function (d) { return d.data.name })
+        .attr("font-size", "15px")
+        .attr("fill", "white")
+
     cell.append("title")
         .text(function (d) {
             if (parseFloat(d.data.thisaverage) > parseFloat(d.data.average)) {
                 return d.data.name + "\n" + d.value + " average CO2e per unit [kg]\nMore than average :(";
             } else if (parseFloat(d.data.thisaverage) < parseFloat(d.data.average)) {
-                return  d.data.name + "\n" + d.value + " average CO2e per unit [kg]\nBetter than average :D";
+                return d.data.name + "\n" + d.value + " average CO2e per unit [kg]\nBetter than average :D";
             } else {
                 return d.data.name + "\n" + d.value + " average CO2e per unit [kg]\nAverage :)";
             }
