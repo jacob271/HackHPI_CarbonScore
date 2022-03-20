@@ -1,5 +1,5 @@
 name,parent,quantity,averageFootprintPerUnit,globalAverageFootprint
-Origin,,,
+Origin,,,,
 Sugar,Origin,20,1,2
 "Butter (Cow milk)",Origin,10,5,5
 "Cocoa Beans",Origin,10,11,11
