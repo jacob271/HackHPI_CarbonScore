@@ -44,17 +44,17 @@
     ];
     
     sumstat_2 = [{ month: '1', min: 3, max: 10 },
-    { month: '2', min: 3, max: 10 },
-    { month: '3', min: 2, max: 9 },
-    { month: '4', min: 2, max: 9 },
-    { month: '5', min: 2, max: 10 },
-    { month: '6', min: 2, max: 9 },
-    { month: '7', min: 2, max: 9 },
-    { month: '8', min: 2, max: 8 },
-    { month: '9', min: 2, max: 9 },
-    { month: '10', min: 2, max: 9 },
-    { month: '11', min: 2, max: 10 },
-    { month: '12', min: 2, max: 10 }
+    { month: '2', min: 5, max: 13 },
+    { month: '3', min: 5, max: 14 },
+    { month: '4', min: 5, max: 15 },
+    { month: '5', min: 6, max: 13 },
+    { month: '6', min: 7, max: 14 },
+    { month: '7', min: 7, max: 15 },
+    { month: '8', min: 6, max: 15 },
+    { month: '9', min: 6, max: 14 },
+    { month: '10', min: 7, max: 13 },
+    { month: '11', min: 7, max: 13 },
+    { month: '12', min: 8, max: 12 }
     ];
 
     sumstat_3 = [{ month: '1', min: 10, max: 14 },
@@ -76,7 +76,7 @@
     const y_axis_label_pull = 20;
     const name = "XYZ";
     const font_size = "1.1em";
-    const raw_component_key = "BeeSug100"; // "Butter100" for sumstat_2, "CocBea100" for sumstat_3
+    const raw_component_key = "Butter100"; // "Butter100" for sumstat_2, "CocBea100" for sumstat_3
 
     // Read data and process it afterwards
     d3.csv("/our_data/transformed_mock_data.csv", function (row) {
@@ -99,7 +99,7 @@
             return monthName;
         }
 
-        const active_stumstat = sumstat_1; // ACTIVE SUMSTAT
+        const active_sumstat = sumstat_2; // ACTIVE SUMSTAT
 
         //--- Drawing ---//
         // Tooltip
@@ -158,7 +158,7 @@
         // Show the main vertical line
         svg
             .selectAll("vertLines")
-            .data(active_stumstat)
+            .data(active_sumstat)
             .enter()
             .append("line")
             .attr("x1", function (d) { return (x1(mapMonth(d.month)) + offset) })
@@ -170,12 +170,12 @@
         // Boxes
         svg
             .selectAll("boxes")
-            .data(sumstat_1)
+            .data(active_sumstat)
             .enter()
             .append("rect")
             .attr("x", function (d) { return (x1(mapMonth(d.month)) - box_width / 2 + offset) })
-            .attr("y", function (d) { return (y1((d.min + d.max) / 2 + 0.1)) })
-            .attr("height", function (d) { return (y1((d.min + d.max) / 2 - 0.1) - y1((d.min + d.max) / 2 + 0.1)) })
+            .attr("y", function (d) { return (y1((d.min + d.max) / 2 + 0.2*(d.max - d.min))) })
+            .attr("height", function (d) { return (y1((d.min + d.max) / 2 - 0.2*(d.max - d.min)) - y1((d.min + d.max) / 2 + 0.2*(d.max - d.min))) })
             .attr("width", box_width)
             .attr("stroke", "grey")
             .style("fill", "#038FDE");
@@ -193,7 +193,7 @@
 
         // Fancy animations
         svg.selectAll("circle").transition().duration(2000).attr("cy", function(d) {
-            if (d.key === "BeeSug100") {
+            if (d.key === raw_component_key) {
                 return y1(d.averageFootprintPerUnit);
             }
             
