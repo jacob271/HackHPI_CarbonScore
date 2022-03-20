@@ -7,7 +7,7 @@ months = 12
 with open('mock_data.csv', 'r') as file:
     csv_file = csv.DictReader(file)
     header = csv_file.fieldnames
-    with open('transformed_mock_data.csv', 'r+') as new_file:
+    with open('transformed_mock_data.csv', 'r+', newline='') as new_file:
         csv_writer = csv.DictWriter(new_file, fieldnames=header)
         csv_writer.writeheader()
         for row in csv_file:
