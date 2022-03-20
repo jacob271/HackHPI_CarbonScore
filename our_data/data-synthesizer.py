@@ -16,9 +16,9 @@ with open('mock_data.csv', 'r') as file:
             fpu = float(row['averageFootprintPerUnit'])
             quantity = float(row['quantity'])
             next_fpus = [random.uniform(
-                fpu-fpu/2, fpu+fpu/2) for _ in range(0, months-1)]
+                fpu-fpu/7, fpu+fpu/7) for _ in range(0, months-1)]
             next_quantities = [random.uniform(
-                quantity-quantity/8, quantity+quantity/2) for _ in range(0, months-1)]
+                quantity-quantity/8, quantity+quantity/8) for _ in range(0, months-1)]
             next_total = np.multiply(next_fpus, next_quantities)
             for i in range(0, months-1):
                 new_row['averageFootprintPerUnit'] = next_fpus[i]

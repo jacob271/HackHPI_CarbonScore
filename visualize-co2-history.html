@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="eng">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <style>
+        body {
+            font-family: Segoe, Segoe UI, Candara, Calibri, Arial, sans-serif;
+            font-size: 1em;
+            position: relative;
+        }
+
+        .title {
+            font-size: 20pt;
+            font-weight: 300;
+        }
+
+        .tooltip {
+            position: absolute;
+            z-index: 10;
+            visibility: hidden;
+            padding: 0.5em;
+            color: white;
+            border-radius: 5px;
+            background: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chart"></div>
+</body>
+<script>
+    // Dimensions with margins
+    let margin = { top: 60, right: 30, bottom: 50, left: 35 },
+        width = 600 - margin.left - margin.right,
+        height = 300 - margin.top - margin.bottom;
+
+    // Read data and process it afterwards
+    d3.csv("/our_data/transformed_mock_data.csv", function (row) {
+        //--- Additional calculations ---//
+        if (row.productId == "Cookie100") return {
+            month: parseInt(row.month),
+            averageFootprintPerUnit: parseFloat(row.averageFootprintPerUnit)
+        };
+    }).then(function (data) {
+        //--- Preprocessing ---//
+        data.sort(function (a, b) {
+            return a.month - b.month
+        });
+        mapMonth = function (month_number) {
+            const d = new Date();
+            d.setMonth(month_number - 1);
+            const monthName = d.toLocaleString("en-US", { month: "long" });
+            return monthName;
+        }
+        //--- Drawing ---//
+        // Tooltip
+        var tooltip = d3.select("body")
+            .append("div")
+            .attr("class", "tooltip");
+        var nodeName = tooltip.append("div");
+        var nodeInfo = tooltip.append("div");
+        // Insert svg and group
+        var svg = d3
+            .select("#chart")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        // Print the title
+        svg
+            .append("text")
+            .attr("class", "title")
+            .attr("x", width / 2)
+            .attr("y", 0)
+            .style("text-anchor", "middle")
+            .text("CO2e History");
+
+        // Add visualization
+        // X axis
+        var x = d3.scaleBand()
+            .range([margin.left, width])
+            .domain(data.map(function (d) { return mapMonth(d.month); }))
+            .padding(0.4);
+        svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x))
+            .selectAll("text")
+            .attr("transform", "translate(-10,0)rotate(-45)")
+            .style("text-anchor", "end");
+
+        // Add Y axis
+        var y = d3.scaleLinear()
+            .domain([0, d3.max(data.map(function (d) { return d.averageFootprintPerUnit }))])
+            .range([height, 20]);
+        svg.append("g")
+            .attr("transform", "translate(" + margin.left + ",0)")
+            .call(d3.axisLeft(y));
+
+        svg.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 0 - margin.left)
+            .attr("x", 0 - (height / 2))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .html("Avg. CO2e [kg] per unit");
+
+        // Bars
+        svg.selectAll("mybar")
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("x", function (d) { return x(mapMonth(d.month)); })
+            .attr("width", x.bandwidth())
+            .attr("height", function (d) { return height - y(0); })
+            .attr("y", function (d) { return y(0); })
+            .attr("fill", "#038FDE")
+            .on("mouseover", function (d) {
+                svg.selectAll("rect").style("opacity", c => c.month === d.month ? .5 : 1)
+                tooltip.style("visibility", "visible");
+                nodeName.text(mapMonth(d.month))
+                nodeInfo.text(d.averageFootprintPerUnit.toFixed(3) + " CO2e [kg]");
+            })
+            .on("mousemove", function (d) {
+                tooltip.style("top", (d3.event.pageY - 10) + "px").style("left", (d3.event.pageX + 10) + "px");
+            })
+            .on("mouseout", function (d) {
+                svg.selectAll("rect").style("opacity", 1);
+                tooltip.style("visibility", "hidden");
+            });
+
+        // Animation
+        svg.selectAll("rect")
+            .transition()
+            .duration(800)
+            .attr("y", function (d) { return y(d.averageFootprintPerUnit); })
+            .attr("height", function (d) { return height - y(d.averageFootprintPerUnit); })
+            .delay(function (d, i) { return (i * 100); })
+
+    });
+</script>
+
+</html>
