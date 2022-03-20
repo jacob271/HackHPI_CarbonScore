@@ -1,13 +1,13 @@
 <ng-container *ngIf="{ isBusinessView: isBusinessView$ | async } as data">
   <h2 class="tui-text_h2 tui-space_vertical-0">
     10
-  
+
     <tui-svg *ngIf="data.isBusinessView" src="tuiIconChevronUpLarge"></tui-svg>
   </h2>
-  
+
   <h6 class="tui-text_body-l tui-space_bottom-2 tui-space_top-0">kg CO2e per unit</h6>
 
   <tui-notification *ngIf="data.isBusinessView" status="success" class="tui-space_top-2 tui-space_bottom-4">
-    @TODO: Add text
+    Your emission for this product are below average.
   </tui-notification>
 </ng-container>
