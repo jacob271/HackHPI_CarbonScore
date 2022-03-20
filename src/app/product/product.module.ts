@@ -8,7 +8,7 @@ import { ProductDetailsCarbonFootprintIndicatorComponent } from './product-detai
 import { ProductDetailsCarbonScoreComponent } from './product-details/product-details-carbon-score/product-details-carbon-score.component'
 import { ProductDetailsIngredientsComponent } from './product-details/product-details-ingredients/product-details-ingredients.component'
 import { ProductDetailsIngredientsHistoryComponent } from './product-details/product-details-ingredients-history/product-details-ingredients-history.component'
-import { TuiNotificationModule, TuiSvgModule } from '@taiga-ui/core';
+import { TuiDropdownModule, TuiLinkModule, TuiNotificationModule, TuiSvgModule } from '@taiga-ui/core'
 import { ProductDetailsRecommendationsComponent } from './product-details/product-details-recommendations/product-details-recommendations.component'
 
 @NgModule({
@@ -21,7 +21,15 @@ import { ProductDetailsRecommendationsComponent } from './product-details/produc
     ProductDetailsIngredientsHistoryComponent,
     ProductDetailsRecommendationsComponent,
   ],
-  imports: [CoreModule, ProductRoutingModule, TuiAvatarModule, TuiSvgModule, TuiNotificationModule],
+  imports: [
+    CoreModule,
+    ProductRoutingModule,
+    TuiAvatarModule,
+    TuiSvgModule,
+    TuiNotificationModule,
+    TuiLinkModule,
+    TuiDropdownModule,
+  ],
   exports: [],
 })
 export class ProductModule {}

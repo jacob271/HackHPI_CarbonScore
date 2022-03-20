@@ -3,3 +3,19 @@
 
   <img [src]="'assets/score_' + product.score + '.png'" />
 </div>
+
+<div (tuiActiveZoneChange)="onActiveZone($event)">
+  <a
+    tuiLink
+    style="font-size: 1rem"
+    [tuiDropdown]="isDropdownOpen"
+    [tuiDropdownContent]="dropdownContent"
+    (tuiObscured)="onObscured($event)"
+    (click)="onClick()"
+    >What is CarbonScore?
+  </a>
+</div>
+
+<ng-template #dropdownContent>
+  <img style="margin: 0.5rem" src="assets/carbonscore_explanantion.png" />
+</ng-template>

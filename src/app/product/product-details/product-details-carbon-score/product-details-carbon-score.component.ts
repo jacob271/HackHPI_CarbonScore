@@ -8,4 +8,20 @@ import { Product } from '../../types/product.interface'
 })
 export class ProductDetailsCarbonScoreComponent {
   @Input() product: Product
+
+  isDropdownOpen = false
+
+  onClick() {
+    this.isDropdownOpen = !this.isDropdownOpen
+  }
+
+  onActiveZone(active: unknown) {
+    this.isDropdownOpen = typeof active === 'boolean' && active && this.isDropdownOpen
+  }
+
+  onObscured(isObscured: unknown): void {
+    if (isObscured) {
+      this.isDropdownOpen = false
+    }
+  }
 }
