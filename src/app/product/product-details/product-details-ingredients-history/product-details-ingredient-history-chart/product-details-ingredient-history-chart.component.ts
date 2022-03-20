@@ -7,6 +7,7 @@ import * as d3 from 'd3'
   styleUrls: ['./product-details-ingredient-history-chart.component.scss'],
 })
 export class ProductDetailsIngredientHistoryChartComponent implements OnInit {
+  @Input() name: string
   @Input() sumStat: {}[]
   @Input() rawComponentKey: string
 
@@ -19,7 +20,7 @@ export class ProductDetailsIngredientHistoryChartComponent implements OnInit {
   private initChart(): void {
     const offset = 9
     const box_width = 30
-    const name = 'XYZ'
+    const { name } = this
     const font_size = '1.2rem'
     const raw_component_key = this.rawComponentKey // "Butter100" for sumstat_2, "CocBea100" for sumstat_3
 
@@ -159,10 +160,10 @@ export class ProductDetailsIngredientHistoryChartComponent implements OnInit {
           return x1(mapMonth(d.month)) - box_width / 2 + offset
         })
         .attr('y', function (d: any) {
-          return y1((d.min + d.max) / 2 + 0.1)
+          return y1((d.min + d.max) / 2 + 0.2 * (d.max - d.min))
         })
         .attr('height', function (d: any) {
-          return y1((d.min + d.max) / 2 - 0.1) - y1((d.min + d.max) / 2 + 0.1)
+          return y1((d.min + d.max) / 2 - 0.2 * (d.max - d.min)) - y1((d.min + d.max) / 2 + 0.2 * (d.max - d.min))
         })
         .attr('width', box_width)
         .attr('stroke', 'grey')
@@ -193,7 +194,7 @@ export class ProductDetailsIngredientHistoryChartComponent implements OnInit {
         .transition()
         .duration(2000)
         .attr('cy', (d: any) => {
-          if (d.key === 'BeeSug100') {
+          if (d.key === raw_component_key) {
             return y1(d.averageFootprintPerUnit)
           }
 
