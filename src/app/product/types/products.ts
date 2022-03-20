@@ -14,9 +14,9 @@ export const products: Product[] = [
   {
     id: 2,
     category: ProductCategory.Clothing,
-    name: 'Red Jacket',
+    name: 'Jacket "Future"',
     imageUrl: 'https://ae01.alicdn.com/kf/HTB1T5gYbiHrK1Rjy0Flq6AsaFXat/High-Quality-2019-Winter-Jacket-Men-Hooded-Windbreaker-and-Waterproof-Thick-Warm-Parka-Coat-Men-Casual.jpg',
     score: ProductScore.C,
-    companyName: 'The ultimate jacket company'
+    companyName: 'H&M'
   }
 ]
