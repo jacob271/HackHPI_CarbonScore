@@ -13,7 +13,9 @@ export class SearchResultsComponent {
   readonly query$: Observable<string> = this.route.paramMap.pipe(map((paramMap) => paramMap.get('searchQuery')))
 
   readonly filteredSearchResults$: Observable<SearchResult[]> = this.query$.pipe(
-    map((query) => this.searchResults.filter((searchResult) => searchResult.name.toLowerCase().includes(query)))
+    map((query) =>
+      this.searchResults.filter((searchResult) => searchResult.name.toLowerCase().includes(query.toLowerCase()))
+    )
   )
 
   readonly searchResults = products
