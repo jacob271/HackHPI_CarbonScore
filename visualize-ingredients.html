@@ -316,6 +316,7 @@
             .attr("stroke", "black")
             .style("fill", "orange")
 
+        // Fancy animations
         svg.selectAll("circle").transition().duration(2000).attr("cy", function(d) {
             if (d.key === "BeeSug100") {
                 return y1(d.averageFootprintPerUnit);

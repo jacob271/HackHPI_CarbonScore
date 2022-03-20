@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="eng">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <style>
+        body {
+            font-family: Segoe, Segoe UI, Candara, Calibri, Arial, sans-serif;
+            font-size: 1em;
+            position: relative;
+        }
+
+        .title {
+            font-size: 20pt;
+            font-weight: 300;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chart"></div>
+</body>
+<script>
+    // Dimensions with margins
+    let margin = { top: 20, right: 30, bottom: 80, left: 35 },
+        width = 600 - margin.left - margin.right,
+        height = 400 - margin.top - margin.bottom;
+
+    // Mocked shared information
+    const sumstat_1 = [{ month: '1', min: 0.6, max: 1.0 },
+    { month: '2', min: 0.6, max: 1.0 },
+    { month: '3', min: 0.5, max: 0.9 },
+    { month: '4', min: 0.5, max: 0.9 },
+    { month: '5', min: 0.5, max: 1.0 },
+    { month: '6', min: 0.4, max: 0.9 },
+    { month: '7', min: 0.5, max: 1.0 },
+    { month: '8', min: 0.5, max: 0.9 },
+    { month: '9', min: 0.5, max: 1.0 },
+    { month: '10', min: 0.5, max: 0.9 },
+    { month: '11', min: 0.5, max: 0.9 },
+    { month: '12', min: 0.6, max: 0.9 }
+    ];
+    
+    sumstat_2 = [{ month: '1', min: 3, max: 10 },
+    { month: '2', min: 3, max: 10 },
+    { month: '3', min: 2, max: 9 },
+    { month: '4', min: 2, max: 9 },
+    { month: '5', min: 2, max: 10 },
+    { month: '6', min: 2, max: 9 },
+    { month: '7', min: 2, max: 9 },
+    { month: '8', min: 2, max: 8 },
+    { month: '9', min: 2, max: 9 },
+    { month: '10', min: 2, max: 9 },
+    { month: '11', min: 2, max: 10 },
+    { month: '12', min: 2, max: 10 }
+    ];
+
+    sumstat_3 = [{ month: '1', min: 10, max: 14 },
+    { month: '2', min: 11, max: 16 },
+    { month: '3', min: 11, max: 15 },
+    { month: '4', min: 10, max: 16 },
+    { month: '5', min: 11, max: 15 },
+    { month: '6', min: 11, max: 18 },
+    { month: '7', min: 11, max: 18 },
+    { month: '8', min: 12, max: 18 },
+    { month: '9', min: 12, max: 19 },
+    { month: '10', min: 12, max: 20 },
+    { month: '11', min: 13, max: 21 },
+    { month: '12', min: 14, max: 22 }
+    ];
+
+    const offset = 9;
+    const box_width = 15;
+    const y_axis_label_pull = 20;
+    const name = "XYZ";
+    const font_size = "1.1em";
+    const raw_component_key = "BeeSug100"; // "Butter100" for sumstat_2, "CocBea100" for sumstat_3
+
+    // Read data and process it afterwards
+    d3.csv("/our_data/transformed_mock_data.csv", function (row) {
+        //--- Additional calculations ---//
+        if (row.productId != "Cookie100") return {
+            key: row.productId,
+            name: row.productName,
+            plant: row.plant,
+            month: parseInt(row.month),
+            averageFootprintPerUnit: parseFloat(row.averageFootprintPerUnit),
+            quantity: parseFloat(row.quantity),
+            totalFootprint: parseFloat(row.totalFootprint)
+        };
+    }).then(function (data) {
+        //--- Preprocessing ---//
+        mapMonth = function (month_number) {
+            const d = new Date();
+            d.setMonth(month_number - 1);
+            const monthName = d.toLocaleString("en-US", { month: "long" });
+            return monthName;
+        }
+
+        const active_stumstat = sumstat_1; // ACTIVE SUMSTAT
+
+        //--- Drawing ---//
+        // Tooltip
+        var tooltip = d3.select("body")
+            .append("div")
+            .attr("class", "tooltip");
+        var nodeName = tooltip.append("div");
+        var nodeInfo = tooltip.append("div");
+        // Insert svg and group
+        var svg = d3
+            .select("#chart")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .style("font-size", font_size)
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        // X axis column 1
+        const x1 = d3.scaleBand()
+            .range([margin.left, width])
+            .domain(data.filter(d => d.key === raw_component_key).map(function (d) { return mapMonth(d.month); }))
+            .padding(0.2);
+        svg.append("g")
+            .attr("transform", "translate(0," + height+ ")")
+            .call(d3.axisBottom(x1))
+            .selectAll("text")
+            .style("font-size", font_size)
+            .attr("transform", "translate(-10,0)rotate(-45)")
+            .style("text-anchor", "end");
+            
+        const y1 = d3.scaleLinear()
+            .domain([0, d3.max(data.filter(d => d.key === raw_component_key).map(function (d) { return 2 * d.averageFootprintPerUnit }))])
+            .range([height, 0]);
+        svg.append("g")
+            .attr("transform", "translate(" + margin.left + ",0)")
+            .style("font-size", font_size)
+            .call(d3.axisLeft(y1));
+        svg.append("g")
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 0 - 30)
+            .attr("x", 0 - (height / 2))
+            .attr("dy", "1.2em")
+            .style("text-anchor", "middle")
+            .html("Avg. CO2e / unit [kg]");
+        svg.append("g")
+            .append("text")
+            .attr("y", 0)
+            .attr("x", width/2)
+            .attr("dy", font_size)
+            .style("text-anchor", "middle")
+            .style("font-size", font_size)
+            .text(name);
+        
+        // Show the main vertical line
+        svg
+            .selectAll("vertLines")
+            .data(active_stumstat)
+            .enter()
+            .append("line")
+            .attr("x1", function (d) { return (x1(mapMonth(d.month)) + offset) })
+            .attr("x2", function (d) { return (x1(mapMonth(d.month)) + offset) })
+            .attr("y1", function (d) { return (y1(d.min)) })
+            .attr("y2", function (d) { return (y1(d.max)) })
+            .attr("stroke", "grey")
+            .style("width", 5)
+        // Boxes
+        svg
+            .selectAll("boxes")
+            .data(sumstat_1)
+            .enter()
+            .append("rect")
+            .attr("x", function (d) { return (x1(mapMonth(d.month)) - box_width / 2 + offset) })
+            .attr("y", function (d) { return (y1((d.min + d.max) / 2 + 0.1)) })
+            .attr("height", function (d) { return (y1((d.min + d.max) / 2 - 0.1) - y1((d.min + d.max) / 2 + 0.1)) })
+            .attr("width", box_width)
+            .attr("stroke", "grey")
+            .style("fill", "#038FDE");
+
+        const initial_position_y_1 = d3.max(data.filter(d => d.key === raw_component_key).map(function (d) { return 2 * d.averageFootprintPerUnit })) / 2;
+        const first = svg.selectAll("no1")
+            .data(data.filter(d => d.key === raw_component_key))
+            .enter()
+            .append("circle")
+            .attr("cx", d => x1(mapMonth(d.month)) + offset)
+            .attr("cy", y1(initial_position_y_1))
+            .attr("r", "3pt")
+            .attr("stroke", "black")
+            .style("fill", "orange")
+
+        // Fancy animations
+        svg.selectAll("circle").transition().duration(2000).attr("cy", function(d) {
+            if (d.key === "BeeSug100") {
+                return y1(d.averageFootprintPerUnit);
+            }
+            
+        });
+        svg.selectAll("rect").transition().duration(2100).attr("opacity",1);
+        svg.selectAll("line").transition().duration(2100).attr("opacity",1);
+    });
+</script>
+
+</html>

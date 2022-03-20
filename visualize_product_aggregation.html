@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="eng">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <style>
+        body {
+            font-family: Segoe, Segoe UI, Candara, Calibri, Arial, sans-serif;
+            font-size: 1em;
+            position: relative;
+        }
+
+        .title {
+            font-size: 20pt;
+            font-weight: 300;
+        }
+
+        .tooltip {
+            position: absolute;
+            z-index: 10;
+            visibility: hidden;
+            padding: 0.5em;
+            color: white;
+            border-radius: 5px;
+            background: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chart"></div>
+</body>
+<script>
+    var stratify = d3.stratify()
+        .parentId(function (d) {
+            return d.id.substring(0, d.id.lastIndexOf("\\"));
+        });
+
+    var data = d3.csvParse(`id,name,value,thisaverage,average
+root,root,0,,
+root\\sugar,"Sugar",20,8,7
+root\\butter,"Butter (Cow Milk)",10,10,11
+root\\cocoabeans,"Cocoa Beans",13,11
+root\\cocoaoil,"Cocoa Oil",5,11,11
+root\\wheat,"Wheat",50,1,2
+root\\palmoil,"Palm Oil",5,16,15
+`);
+    var tree = stratify(data);
+    tree.sum(function (d) { return d.value });
+    var width = 500, height = 300;
+    var treemap = d3.treemap()
+        .size([width, height])
+        .round(true)
+        .padding(1);
+
+    // Apply to the tree
+    treemap(tree);
+
+    var svg = d3.select("#chart")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+    var cell = svg.selectAll("g")
+        .data(tree.leaves())
+        .enter().append("g")
+        .attr("transform", function (d) {
+            return "translate(" + d.x0 + "," + d.y0 + ")";
+        });
+
+    cell.append("rect")
+        .attr("id", function (d) {
+            return d.data.id;
+        })
+        .attr("width", function (d) {
+            return d.x1 - d.x0;
+        })
+        .attr("height", function (d) {
+            return d.y1 - d.y0;
+        })
+        .attr("fill", function (d) { 
+            if (parseFloat(d.data.thisaverage) > parseFloat(d.data.average)) {
+                return "#d78e8c";
+            } else if (parseFloat(d.data.thisaverage) < parseFloat(d.data.average)) {
+                return "#91d78c";
+            } else {
+                return "#d3d78c";
+            }
+        });
+    cell.append("title")
+        .text(function (d) {
+            if (parseFloat(d.data.thisaverage) > parseFloat(d.data.average)) {
+                return d.data.name + "\n" + d.value + " average CO2e per unit [kg]\nMore than average :(";
+            } else if (parseFloat(d.data.thisaverage) < parseFloat(d.data.average)) {
+                return  d.data.name + "\n" + d.value + " average CO2e per unit [kg]\nBetter than average :D";
+            } else {
+                return d.data.name + "\n" + d.value + " average CO2e per unit [kg]\nAverage :)";
+            }
+        });
+</script>
+
+</html>
