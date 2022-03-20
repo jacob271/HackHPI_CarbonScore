@@ -16,16 +16,6 @@
             font-size: 20pt;
             font-weight: 300;
         }
-
-        .tooltip {
-            position: absolute;
-            z-index: 10;
-            visibility: hidden;
-            padding: 0.5em;
-            color: white;
-            border-radius: 5px;
-            background: #000;
-        }
     </style>
 </head>
 
@@ -95,7 +85,6 @@
         };
     }).then(function (data) {
         //--- Preprocessing ---//
-        console.log(data)
         mapMonth = function (month_number) {
             const d = new Date();
             d.setMonth(month_number - 1);
@@ -122,6 +111,7 @@
         const offset = 9;
         const padding_between_col = 50;
         const box_width = 15;
+        const y_axis_label_pull = 20;
         // X axis column 1
         const x1 = d3.scaleBand()
             .range([margin.left, width / 3 - padding_between_col])
@@ -139,6 +129,51 @@
         svg.append("g")
             .attr("transform", "translate(" + margin.left + ",0)")
             .call(d3.axisLeft(y1));
+        svg.append("g")
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 0 - 15)
+            .attr("x", 0 - (height / 4))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .html("Avg. CO2e / unit [kg]");
+        svg.append("g")
+            .append("text")
+            .attr("y", 0)
+            .attr("x", width / 6 - 10)
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .html("Linen");
+        svg.append("g")
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", width / 3 - 45)
+            .attr("x", 0 - (height / 4))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .html("Avg. CO2e / unit [kg]");
+        svg.append("g")
+            .append("text")
+            .attr("y", 0)
+            .attr("x", width / 2 - 10)
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .html("Cotton");
+        svg.append("g")
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 2 * width / 3 - 45)
+            .attr("x", 0 - (height / 4))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .html("Avg. CO2e / unit [kg]");
+        svg.append("g")
+            .append("text")
+            .attr("y", 0)
+            .attr("x", 7 * width / 9 + 20)
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .html("Wool");
         // Show the main vertical line
         svg
             .selectAll("vertLines")
@@ -158,11 +193,11 @@
             .enter()
             .append("rect")
             .attr("x", function (d) { return (x1(mapMonth(d.month)) - box_width / 2 + offset) })
-            .attr("y", function (d) { return (y1((d.min + d.max)/2 + 0.1))})
-            .attr("height", function (d) { return (y1((d.min + d.max)/2 - 0.1) - y1((d.min + d.max)/2 + 0.1)) })
+            .attr("y", function (d) { return (y1((d.min + d.max) / 2 + 0.1)) })
+            .attr("height", function (d) { return (y1((d.min + d.max) / 2 - 0.1) - y1((d.min + d.max) / 2 + 0.1)) })
             .attr("width", box_width)
             .attr("stroke", "grey")
-            .style("fill", "#038FDE")
+            .style("fill", "#038FDE");
 
         // X axis column 2
         const x2 = d3.scaleBand()
@@ -200,8 +235,8 @@
             .enter()
             .append("rect")
             .attr("x", function (d) { return (x2(mapMonth(d.month)) - box_width / 2 + offset) })
-            .attr("y", function (d) { return (y2((d.min + d.max)/2 + 1))})
-            .attr("height", function (d) { return (y2((d.min + d.max)/2 - 1) - y2((d.min + d.max)/2 + 1)) })
+            .attr("y", function (d) { return (y2((d.min + d.max) / 2 + 1)) })
+            .attr("height", function (d) { return (y2((d.min + d.max) / 2 - 1) - y2((d.min + d.max) / 2 + 1)) })
             .attr("width", box_width)
             .attr("stroke", "grey")
             .style("fill", "#038FDE")
@@ -242,41 +277,57 @@
             .enter()
             .append("rect")
             .attr("x", function (d) { return (x3(mapMonth(d.month)) - box_width / 2 + offset) })
-            .attr("y", function (d) { return (y3((d.min + d.max)/2 + 1))})
-            .attr("height", function (d) { return (y3((d.min + d.max)/2 - 1) - y3((d.min + d.max)/2 + 1)) })
+            .attr("y", function (d) { return (y3((d.min + d.max) / 2 + 1)) })
+            .attr("height", function (d) { return (y3((d.min + d.max) / 2 - 1) - y3((d.min + d.max) / 2 + 1)) })
             .attr("width", box_width)
             .attr("stroke", "grey")
             .style("fill", "#038FDE")
 
-        svg.selectAll("no1")
+        initial_position_y_1 = d3.max(data.filter(d => d.key === "BeeSug100").map(function (d) { return 2 * d.averageFootprintPerUnit })) / 2;
+        const first = svg.selectAll("no1")
             .data(data.filter(d => d.key === "BeeSug100"))
             .enter()
             .append("circle")
             .attr("cx", d => x1(mapMonth(d.month)) + offset)
-            .attr("cy", d => y1(d.averageFootprintPerUnit))
+            .attr("cy", y1(initial_position_y_1))
             .attr("r", "3pt")
             .attr("stroke", "black")
             .style("fill", "orange")
 
-        svg.selectAll("no2")
+        initial_position_y_2 = d3.max(data.filter(d => d.key === "Butter100").map(function (d) { return 2 * d.averageFootprintPerUnit })) / 2;
+        const second = svg.selectAll("no2")
             .data(data.filter(d => d.key === "Butter100"))
             .enter()
             .append("circle")
             .attr("cx", d => x2(mapMonth(d.month)) + offset)
-            .attr("cy", d => y2(d.averageFootprintPerUnit - d.month / 2))
+            .attr("cy", d => y2(initial_position_y_2))
             .attr("r", "3pt")
             .attr("stroke", "black")
             .style("fill", "orange")
 
-        svg.selectAll("no3")
+        initial_position_y_3 = d3.max(data.filter(d => d.key === "CocBea100").map(function (d) { return 2 * d.averageFootprintPerUnit })) / 2;
+        const third = svg.selectAll("no3")
             .data(data.filter(d => d.key === "CocBea100"))
             .enter()
             .append("circle")
             .attr("cx", d => x3(mapMonth(d.month)) + offset)
-            .attr("cy", d => y3(d.averageFootprintPerUnit + d.month / 2))
+            .attr("cy", d => y3(initial_position_y_3))
             .attr("r", "3pt")
             .attr("stroke", "black")
             .style("fill", "orange")
+
+        svg.selectAll("circle").transition().duration(2000).attr("cy", function(d) {
+            if (d.key === "BeeSug100") {
+                return y1(d.averageFootprintPerUnit);
+            } else if (d.key === "Butter100") {
+                return y2(d.averageFootprintPerUnit - d.month / 2)
+            } else if (d.key === "CocBea100") {
+                return y3(d.averageFootprintPerUnit + d.month / 2)
+            }
+            
+        });
+        svg.selectAll("rect").transition().duration(2100).attr("opacity",1);
+        svg.selectAll("line").transition().duration(2100).attr("opacity",1);
     });
 </script>
 
