@@ -58,17 +58,17 @@
     ];
 
     sumstat_3 = [{ month: '1', min: 10, max: 14 },
-    { month: '2', min: 11, max: 16 },
-    { month: '3', min: 11, max: 15 },
-    { month: '4', min: 10, max: 16 },
-    { month: '5', min: 11, max: 15 },
-    { month: '6', min: 11, max: 18 },
-    { month: '7', min: 11, max: 18 },
-    { month: '8', min: 12, max: 18 },
-    { month: '9', min: 12, max: 19 },
-    { month: '10', min: 12, max: 20 },
-    { month: '11', min: 13, max: 21 },
-    { month: '12', min: 14, max: 22 }
+    { month: '2', min: 10, max: 14 },
+    { month: '3', min: 11, max: 16 },
+    { month: '4', min: 9, max: 15 },
+    { month: '5', min: 8, max: 14 },
+    { month: '6', min: 9, max: 15 },
+    { month: '7', min: 10, max: 15 },
+    { month: '8', min: 7, max: 13 },
+    { month: '9', min: 7, max: 14 },
+    { month: '10', min: 6, max: 13 },
+    { month: '11', min: 7, max: 12 },
+    { month: '12', min: 8, max: 15 }
     ];
 
     const offset = 9;
@@ -76,7 +76,7 @@
     const y_axis_label_pull = 20;
     const name = "XYZ";
     const font_size = "1.1em";
-    const raw_component_key = "Butter100"; // "Butter100" for sumstat_2, "CocBea100" for sumstat_3
+    const raw_component_key = "CocBea100"; // "Butter100" for sumstat_2, "CocBea100" for sumstat_3
 
     // Read data and process it afterwards
     d3.csv("/our_data/transformed_mock_data.csv", function (row) {
@@ -99,7 +99,7 @@
             return monthName;
         }
 
-        const active_sumstat = sumstat_2; // ACTIVE SUMSTAT
+        const active_sumstat = sumstat_3; // ACTIVE SUMSTAT
 
         //--- Drawing ---//
         // Tooltip
