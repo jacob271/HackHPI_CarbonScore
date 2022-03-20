@@ -1,7 +1,6 @@
 import { Component } from '@angular/core'
 import { FormBuilder } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
-import { map, Observable } from 'rxjs'
 
 @Component({
   selector: 'app-search-bar',
@@ -9,7 +8,7 @@ import { map, Observable } from 'rxjs'
   styleUrls: ['./search-bar.component.scss'],
 })
 export class SearchBarComponent {
-  readonly searchControl = this.formBuilder.control(undefined)
+  readonly searchControl = this.formBuilder.control(this.route.snapshot.paramMap.get('searchQuery'))
 
   constructor(
     private readonly formBuilder: FormBuilder,

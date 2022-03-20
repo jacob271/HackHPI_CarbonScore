@@ -9,4 +9,9 @@
       [searchResult]="searchResult"
     ></app-search-result-card>
   </div>
+
+  <p class="tui-text_body-xl" *ngIf="!data.filteredSearchResults.length">
+    No results for your search.
+  </p>
 </ng-container>
+g
