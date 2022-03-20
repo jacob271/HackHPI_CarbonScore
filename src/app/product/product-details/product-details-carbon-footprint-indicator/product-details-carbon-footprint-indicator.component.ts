@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core'
+import { Observable } from 'rxjs'
+import { ViewTypeService } from 'src/app/view-type.service'
 import { Product } from '../../types/product.interface'
 
 @Component({
@@ -8,4 +10,8 @@ import { Product } from '../../types/product.interface'
 })
 export class ProductDetailsCarbonFootprintIndicatorComponent {
   @Input() product: Product
+
+  readonly isBusinessView$: Observable<boolean> = this.viewType.isBusinessView$
+
+  constructor(private readonly viewType: ViewTypeService) {}
 }

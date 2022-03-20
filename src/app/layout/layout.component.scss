@@ -3,8 +3,35 @@
   display: flex;
   flex-direction: column;
 
-
   &::ng-deep > *:not(header):not(router-outlet) {
     flex-grow: 1;
+    min-height: 0;
+  }
+
+  & > header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+
+    box-shadow: 0 .125rem 1rem rgba(0,0,0,.08);
+
+    background-color: rgba(0,0,0, 0.02);
+
+    & > div {
+      display: flex;
+      align-items: center;
+
+      & > a {
+        font-size: 1rem;
+      }
+
+      & > a > img {
+        height: 85px;
+        width: auto;
+      }
+    }
   }
 }

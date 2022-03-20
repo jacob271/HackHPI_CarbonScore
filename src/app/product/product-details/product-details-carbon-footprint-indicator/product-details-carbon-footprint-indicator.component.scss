@@ -5,4 +5,9 @@
   text-align: center;
   
   text-align: center;
+
+  & tui-svg::ng-deep {
+    color: var(--tui-positive);
+    font-size: 2rem;
+  }
 }

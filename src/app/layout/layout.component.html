@@ -1,5 +1,15 @@
-<header tuiElasticSticky>
-  <div class="tui-text_h4 tui-space_left-2">Ostmost</div>
-</header>
+<ng-container *ngIf="{ isBusinessView: isBusinessView$ | async } as data">
+  <header tuiElasticSticky>
+    <div>
+      <a [routerLink]="['/']"><img src="assets/logo_transparent.png" /></a>
 
-<ng-content></ng-content>
+      <a tuiLink class="tui-text_h6 tui-space_horizontal-4">About us</a>
+
+      <a tuiLink class="tui-text_h6">What is the CarbonScore?</a>
+    </div>
+
+    <tui-toggle [ngModel]="data.isBusinessView" (ngModelChange)="onToggle()"></tui-toggle>
+  </header>
+
+  <ng-content></ng-content>
+</ng-container>

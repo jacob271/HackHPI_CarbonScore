@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core'
+import { Observable } from 'rxjs'
+import { ViewTypeService } from '../view-type.service'
 
 @Component({
   selector: 'app-layout',
@@ -6,4 +8,12 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrls: ['./layout.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LayoutComponent {}
+export class LayoutComponent {
+  readonly isBusinessView$: Observable<boolean> = this.viewTypeService.isBusinessView$
+
+  constructor(private readonly viewTypeService: ViewTypeService) {}
+
+  onToggle(): void {
+    this.viewTypeService.toggleIsBusinessViewState()
+  }
+}

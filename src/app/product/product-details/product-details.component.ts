@@ -1,6 +1,7 @@
 import { Component, HostBinding } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { map, Observable } from 'rxjs'
+import { ViewTypeService } from 'src/app/view-type.service'
 import { Product } from '../types/product.interface'
 import { products } from '../types/products'
 
@@ -15,7 +16,9 @@ export class ProductDetailsComponent {
     map((productId) => products.find((product) => product.id === +productId))
   )
 
+  readonly isBusinessView$: Observable<boolean> = this.viewType.isBusinessView$
+
   @HostBinding('class') protected readonly hostClass = 'tui-container'
 
-  constructor(private readonly route: ActivatedRoute) {}
+  constructor(private readonly route: ActivatedRoute, private readonly viewType: ViewTypeService) {}
 }
