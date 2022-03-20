@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core'
-import { TuiAvatarModule } from '@taiga-ui/kit'
+import { TuiAccordionModule, TuiAvatarModule } from '@taiga-ui/kit'
 import { CoreModule } from '../core/core.module'
 import { ProductDetailsComponent } from './product-details/product-details.component'
 import { ProductRoutingModule } from './product-routing.module'
@@ -10,6 +10,7 @@ import { ProductDetailsIngredientsComponent } from './product-details/product-de
 import { ProductDetailsIngredientsHistoryComponent } from './product-details/product-details-ingredients-history/product-details-ingredients-history.component'
 import { TuiDropdownModule, TuiLinkModule, TuiNotificationModule, TuiSvgModule } from '@taiga-ui/core'
 import { ProductDetailsRecommendationsComponent } from './product-details/product-details-recommendations/product-details-recommendations.component'
+import { ProductDetailsIngredientHistoryChartComponent } from './product-details/product-details-ingredients-history/product-details-ingredient-history-chart/product-details-ingredient-history-chart.component'
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { ProductDetailsRecommendationsComponent } from './product-details/produc
     ProductDetailsIngredientsComponent,
     ProductDetailsIngredientsHistoryComponent,
     ProductDetailsRecommendationsComponent,
+    ProductDetailsIngredientHistoryChartComponent,
   ],
   imports: [
     CoreModule,
@@ -29,6 +31,7 @@ import { ProductDetailsRecommendationsComponent } from './product-details/produc
     TuiNotificationModule,
     TuiLinkModule,
     TuiDropdownModule,
+    TuiAccordionModule,
   ],
   exports: [],
 })

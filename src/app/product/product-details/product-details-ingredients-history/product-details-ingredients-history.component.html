@@ -1,3 +1,25 @@
 <h5 class="tui-text_h5">Ingredients history</h5>
 
-<figure id="product-details-ingredients-history-chart"></figure>
+<tui-accordion>
+  <tui-accordion-item>
+    Sugar
+
+    <ng-template tuiAccordionItemContent>
+      <app-product-details-ingredient-history-chart
+        [sumStat]="sumStats[0]"
+        rawComponentKey="BeeSug100"
+      ></app-product-details-ingredient-history-chart>
+    </ng-template>
+  </tui-accordion-item>
+
+  <tui-accordion-item>
+    Butter
+
+    <ng-template tuiAccordionItemContent>
+      <app-product-details-ingredient-history-chart
+        [sumStat]="sumStats[1]"
+        rawComponentKey="Butter100"
+      ></app-product-details-ingredient-history-chart>
+    </ng-template>
+  </tui-accordion-item>
+</tui-accordion>
