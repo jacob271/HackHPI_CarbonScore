@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, HostBinding } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { map, Observable } from 'rxjs'
 import { Product } from '../types/product.interface'
@@ -14,6 +14,8 @@ export class ProductDetailsComponent {
     map((paramMap) => paramMap.get('id')),
     map((productId) => products.find((product) => product.id === +productId))
   )
+
+  @HostBinding('class') protected readonly hostClass = 'tui-container'
 
   constructor(private readonly route: ActivatedRoute) {}
 }

@@ -1,16 +1,20 @@
 <ng-container *ngIf="{ product: product$ | async } as data">
-  <img />
+  <h3 class="tui-text_h3 tui-space_bottom-2">{{ data.product.name }}</h3>
+  <div>
+    <tui-avatar [text]="data.product.companyName"></tui-avatar>
+    <h5 class="tui-text_h5 tui-space_vertical-0 tui-space_left-2">{{ data.product.companyName }}</h5>
+  </div>
 
   <div>
+    <img [src]="data.product.imageUrl" />
+
     <div>
-      <h3 class="tui-text_h3 tui-space_bottom-2">{{ data.product.name }}</h3>
-
-      <div>
-        <tui-avatar [text]="data.product.companyName"></tui-avatar>
-        <h5 class="tui-text_h5 tui-space_vertical-0 tui-space_left-2">{{ data.product.companyName }}</h5>
-      </div>
+      <app-product-details-carbon-footprint-indicator
+        [product]="data.product"
+      ></app-product-details-carbon-footprint-indicator>
+      <app-product-details-carbon-score [product]="data.product"></app-product-details-carbon-score>
     </div>
-
-    
   </div>
+
+  <app-product-details-carbon-history></app-product-details-carbon-history>
 </ng-container>
