@@ -8,7 +8,7 @@ export const products: Product[] = [
     category: ProductCategory.Cookies,
     name: 'Cookie',
     imageUrl: 'https://www.onlinesolutionsgroup.de/wp-content/uploads/Cookies.jpg',
-    score: ProductScore.A,
+    score: ProductScore.B,
     companyName: 'Cookie Corp.',
   },
   {
