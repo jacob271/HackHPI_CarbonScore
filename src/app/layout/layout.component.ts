@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core'
+import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core'
 import { Observable } from 'rxjs'
 import { ViewTypeService } from '../view-type.service'
 

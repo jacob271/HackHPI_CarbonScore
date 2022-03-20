@@ -18,7 +18,7 @@ export class ProductDetailsComponent {
 
   readonly isBusinessView$: Observable<boolean> = this.viewType.isBusinessView$
 
-  @HostBinding('class') protected readonly hostClass = 'tui-container'
+  @HostBinding('class') protected readonly hostClass = 'tui-container tui-space_bottom-3'
 
   constructor(private readonly route: ActivatedRoute, private readonly viewType: ViewTypeService) {}
 }
